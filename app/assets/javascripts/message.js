@@ -22,7 +22,7 @@ $(document).on('turbolinks:load', function (){
     return html;
   }
 
-  $('#new_message').on('submit', function(e){
+  $('#new_message').on('turbolinks:load', 'submit', function(e){
     e.preventDefault();
     var formData = new FormData(this);
     var url = $(this).attr("action");
