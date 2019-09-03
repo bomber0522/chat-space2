@@ -22,7 +22,7 @@ $(document).on('turbolinks:load', function (){
     return html;
   }
 
-  $('#new_message').on('turbolinks:load', 'submit', function(e){
+  $('#new_message').on('submit', function(e){
     e.preventDefault();
     var formData = new FormData(this);
     var url = $(this).attr("action");
@@ -47,4 +47,29 @@ $(document).on('turbolinks:load', function (){
       alert('error');
     });
   })
+
+  var interval = setInterval(function() {
+    if (location.href.match(/\/groups\/\d+\/messages/)){
+      var last_message_id = $('.message').last().data('id');
+      var href = 'api/messages'
+      $.ajax({
+        url: href,
+        type: 'get',
+        dateType: "json",
+        data: {id: last_message_id}
+      })
+      .done(function(messages) {
+        messages.forEach(function(message) {
+          var html = buildHTML(message);
+          $('.messages').append(html);
+          $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+        })
+      })
+      .fail(function() {
+        alert('自動更新に失敗しました');
+      });
+    } else {
+      clearInterval(interval);
+    }
+  } , 5000 );
 });
