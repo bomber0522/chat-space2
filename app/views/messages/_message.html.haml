@@ -1,4 +1,4 @@
-.message
+.message{data: {id: "#{message.id}"}}
   .upper-info
     .upper-info__user-name
       = message.user.name
@@ -9,3 +9,4 @@
       %p.message-text__content
         = message.content
     = image_tag message.image.url, class: 'message-text__image' if message.image.present?
+
