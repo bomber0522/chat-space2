@@ -4,6 +4,7 @@ class GroupsController < ApplicationController
   def index
     
   end
+
   def new
     @group = Group.new
     @group.users << current_user
@@ -16,6 +17,10 @@ class GroupsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
+    
   end
 
   def update
