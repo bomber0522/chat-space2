@@ -6,18 +6,18 @@
     .main-header
       .current-group
         .current-group__title
-          @group.name
+          = @group.name
         %ul.current-group__members
           Member：
-          -# - @group.users.each do |user|
-          user.name
+          - @group.users.each do |user|
+            = user.name
       .right-header
         .right-header__button
-          = link_to 'Edit', "#"
+          = link_to 'Edit', edit_group_path(@group)
     .messages
-      render @messages
+      = render @messages
     .form
-      = form_for "#" do |f|
+      = form_for [@group, @message] do |f|
         = f.text_field :content, class: 'form__message', id: 'new_message', placeholder: 'type a message'
         .form__mask
           = f.label :image, class: 'form__mask__image' do
